@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { adminGuard } from './auth/admin.guard';
 
 export const appRoutes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'nobetlerim' },
@@ -34,6 +35,13 @@ export const appRoutes: Route[] = [
       import('../pages/mazeret-talebi/mazeret-talebi').then(
         (m) => m.MazeretTalebi,
       ),
+  },
+  {
+    path: 'yonetim',
+    title: 'Yönetim',
+    canMatch: [adminGuard],
+    loadComponent: () =>
+      import('../pages/yonetim/yonetim').then((m) => m.Yonetim),
   },
   { path: '**', redirectTo: 'nobetlerim' },
 ];

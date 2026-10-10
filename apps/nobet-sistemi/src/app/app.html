@@ -2,7 +2,7 @@
 @if (showNav()) {
 <nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.45)]">
   <div class="flex items-center justify-around h-16 px-space-xs">
-    @for (item of navItems; track item.path) {
+    @for (item of navItems(); track item.path) {
       <a
         class="relative flex flex-col items-center justify-center min-w-[64px] h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5 group"
         [routerLink]="item.path"
@@ -16,4 +16,15 @@
     }
   </div>
 </nav>
+}
+@if (devMode) {
+<button
+  class="fixed bottom-20 right-3 z-[60] px-3 py-1.5 rounded-full bg-surface-bright/90 backdrop-blur text-on-surface font-label-sm text-label-sm shadow-lg flex items-center gap-1"
+  type="button"
+  title="Geliştirme: rolü değiştir"
+  (click)="toggleRole()"
+>
+  <span class="material-symbols-outlined text-[16px]">{{ auth.isAdmin() ? 'shield_person' : 'person' }}</span>
+  {{ auth.isAdmin() ? 'Admin' : 'Personel' }}
+</button>
 }
