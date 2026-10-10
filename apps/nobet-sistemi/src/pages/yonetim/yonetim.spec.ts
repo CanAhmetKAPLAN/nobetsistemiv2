@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Yonetim } from './yonetim';
 
 describe('Yonetim', () => {
@@ -8,6 +9,7 @@ describe('Yonetim', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Yonetim],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Yonetim);

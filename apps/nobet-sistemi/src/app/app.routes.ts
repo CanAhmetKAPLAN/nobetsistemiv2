@@ -74,6 +74,12 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'profil',
+        title: 'Profil & Ayarlar',
+        loadComponent: () =>
+          import('../pages/profil/profil').then((m) => m.Profil),
+      },
+      {
         path: 'yonetim',
         title: 'Yönetim',
         canMatch: [adminGuard],

@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 type Reason = 'annual' | 'health' | 'official' | 'personal';
 type Scope = 'full' | 'part';
@@ -8,7 +8,7 @@ type SubmitState = 'idle' | 'sending' | 'sent';
 
 @Component({
   selector: 'app-mazeret-talebi',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './mazeret-talebi.html',
   styleUrl: './mazeret-talebi.css',
 })

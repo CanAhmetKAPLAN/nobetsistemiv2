@@ -1,8 +1,9 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cizelge',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './cizelge.html',
   styleUrl: './cizelge.css',
 })

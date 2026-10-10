@@ -1,4 +1,5 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 interface ExcuseRequest {
   id: number;
@@ -14,7 +15,7 @@ type EngineState = 'idle' | 'running' | 'done';
 
 @Component({
   selector: 'app-yonetim',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './yonetim.html',
   styleUrl: './yonetim.css',
 })
