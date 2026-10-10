@@ -1,0 +1,9 @@
+{
+  "name": "nobet-sistemi-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/nobet-sistemi-e2e/src",
+  "implicitDependencies": ["nobet-sistemi"],
+  "// targets": "to see all targets run: nx show project nobet-sistemi-e2e --web",
+  "targets": {}
+}

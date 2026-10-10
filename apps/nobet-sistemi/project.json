@@ -1,31 +1,26 @@
 {
-  "name": "shop",
+  "name": "nobet-sistemi",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/shop/src",
-  "tags": ["scope:shop"],
+  "sourceRoot": "apps/nobet-sistemi/src",
+  "tags": ["scope:nobet-sistemi"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/shop",
-        "browser": "apps/shop/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/shop/tsconfig.app.json",
+        "outputPath": "dist/apps/nobet-sistemi",
+        "browser": "apps/nobet-sistemi/src/main.ts",
+        "tsConfig": "apps/nobet-sistemi/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/shop/public"
+            "input": "apps/nobet-sistemi/public"
           }
         ],
-        "styles": ["apps/shop/src/styles.css"],
-        "server": "apps/shop/src/main.server.ts",
-        "ssr": {
-          "entry": "apps/shop/src/server.ts"
-        },
-        "outputMode": "server"
+        "styles": ["apps/nobet-sistemi/src/styles.css"]
       },
       "configurations": {
         "production": {
@@ -48,39 +43,31 @@
           "extractLicenses": false,
           "sourceMap": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
-      "dependsOn": ["api:serve"],
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
       "configurations": {
         "production": {
-          "buildTarget": "shop:build:production"
+          "buildTarget": "nobet-sistemi:build:production"
         },
         "development": {
-          "buildTarget": "shop:build:development"
+          "buildTarget": "nobet-sistemi:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "options": {
-        "proxyConfig": "apps/shop/proxy.conf.json"
       }
     },
-    "extract-i18n": {
-      "executor": "@angular/build:extract-i18n",
-      "options": {
-        "buildTarget": "shop:build"
-      }
+    "lint": {
+      "executor": "@nx/eslint:lint"
     },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "shop:build",
+        "buildTarget": "nobet-sistemi:build",
         "port": 4200,
-        "staticFilePath": "dist/apps/shop/browser",
+        "staticFilePath": "dist/apps/nobet-sistemi/browser",
         "spa": true
       }
     }
