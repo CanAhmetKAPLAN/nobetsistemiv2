@@ -1,2 +1,17 @@
-<app-nx-welcome></app-nx-welcome>
 <router-outlet></router-outlet>
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.45)]">
+  <div class="flex items-center justify-around h-16 px-space-xs">
+    @for (item of navItems; track item.path) {
+      <a
+        class="relative flex flex-col items-center justify-center min-w-[64px] h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5 group"
+        [routerLink]="item.path"
+        routerLinkActive="!text-primary font-semibold [&_span.material-symbols-outlined]:fill-1 [&_.indicator]:opacity-100"
+        ariaCurrentWhenActive="page"
+      >
+        <div class="indicator absolute -top-1 w-8 h-0.5 bg-primary rounded-full opacity-0 transition-opacity"></div>
+        <span class="material-symbols-outlined text-[24px]">{{ item.icon }}</span>
+        <span class="font-label-sm text-label-sm text-center">{{ item.label }}</span>
+      </a>
+    }
+  </div>
+</nav>

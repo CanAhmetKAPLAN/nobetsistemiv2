@@ -1,0 +1,386 @@
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.35)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="NöbetPro logosu" class="h-9 w-9 rounded-lg object-cover shrink-0" src="nobetlogo-64.png" srcset="nobetlogo-64.png 1x, nobetlogo-256.png 3x" width="36" height="36"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase truncate">NöbetPro</span><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Puan Durumu</h1></div></div><div class="flex items-center gap-space-sm shrink-0"><button aria-label="Bildirimler" class="w-11 h-11 rounded-xl flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaR7p0Umsl80FWh1QDg2CB47NkKuUn_rA2sTtYR6Me2SmzaVXIXSkPD9ggU-32M8A4JsGOfm1vF4LID1eUwx7Wm02ZFQrl-LYBNeRMMV46M_UAiuNKzrT4Z6K_04LDOYnkuVPlxvs5ZV5Q8IZ4bTV9ffqCTjghPJ4wHlIGWsKy9gJ6v3kNxhyhb0d3fG7PjNOzbPgsIocRq4fQ_Da5Z6D2LRKPkxKCict8aUdIFpgV_MGWePfpxwxX"/></div></div></header>
+<main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-gutter space-y-space-md">
+<!-- Sub-header & Time Horizon Selector -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-label-sm text-tertiary tracking-wider uppercase">Canlı Algoritma Matrisi</span>
+</div>
+<div class="flex items-center bg-surface-container-low p-1 rounded-full gap-1">
+<button class="px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm shadow-sm transition-all" type="button">Bu Ay</button>
+<button class="px-2.5 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all" type="button">3 Aylık</button>
+<button class="px-2.5 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all" type="button">Yıllık</button>
+</div>
+</div>
+<!-- Algoritma Kuralı & Matematik Kartı -->
+<div class="w-full bg-surface-container rounded-xl p-space-md shadow-md relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-primary/5 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary" style="font-variation-settings: 'FILL' 1;">balance</span>
+<span class="font-label-lg text-label-lg text-on-surface">Adalet Algoritması Ağırlıkları</span>
+</div>
+<span class="font-metric-mono text-metric-mono bg-surface-container-high px-2 py-0.5 rounded-full text-secondary">v4.2 Eşdağılım</span>
+</div>
+<!-- Weight Breakdown Pills -->
+<div class="grid grid-cols-2 gap-space-xs mb-space-sm">
+<div class="bg-surface-container-low p-2.5 rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hafta İçi (Pzt-Cu)</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">work</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-primary font-metric-mono">0.25</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">puan / nöbet</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-secondary-fixed">Hafta Sonu (Ct-Pz)</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">hotel_class</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-secondary font-metric-mono">0.75</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">puan / nöbet</span>
+</div>
+</div>
+</div>
+<!-- Hedef & Kural Açıklaması -->
+<div class="bg-surface-container-lowest/80 rounded-lg p-space-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary shrink-0 mt-0.5">verified_user</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Hedef: Standart sapma <span class="font-metric-mono text-on-surface text-label-sm font-semibold">&lt; 0.50 P</span>. Sistem sonraki hafta sonu atamasını otomatik olarak en düşük puandaki personele tanımlar.
+      </p>
+</div>
+</div>
+<!-- Ekip İstatistik Özeti (Bento Grid) -->
+<div class="grid grid-cols-3 gap-space-xs">
+<div class="bg-surface-container p-3 rounded-xl flex flex-col justify-between shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Toplam Vardiya</span>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-metric-mono">62</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">5 Aktif Personel</span>
+</div>
+<div class="bg-surface-container p-3 rounded-xl flex flex-col justify-between shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ortalama Puan</span>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-metric-mono">5.45</span>
+<span class="font-label-sm text-label-sm text-primary">P</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-body-sm text-body-sm text-tertiary truncate">Hedef Aralıkta</span>
+</div>
+</div>
+<div class="bg-surface-container p-3 rounded-xl flex flex-col justify-between shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Denge Oranı</span>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-tertiary font-metric-mono">98.8</span>
+<span class="font-label-sm text-label-sm text-tertiary">%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Aralık: 5.00 - 5.75</span>
+</div>
+</div>
+<!-- Matris Dağılım Grafiği (Fairness Visualizer Card) -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">stacked_bar_chart</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Vardiya Yük Dağılım Çizgisi</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Baz Çizgi: 5.45 P</span>
+</div>
+<!-- Multi-tier Bar Display -->
+<div class="relative w-full h-8 bg-surface-container-low rounded-lg p-1 flex items-center">
+<!-- Target Marker -->
+<div class="absolute top-0 bottom-0 left-[72%] w-0.5 bg-primary z-10 shadow-[0_0_8px_rgba(37,99,235,0.9)]">
+<span class="absolute -top-4 -translate-x-1/2 font-metric-mono text-[9px] text-primary bg-surface-container-high px-1 rounded">Ort 5.45</span>
+</div>
+<!-- Compact Dots Representing Staff Positions -->
+<div class="relative w-full h-full flex items-center">
+<!-- Caner: 5.00 (60%) -->
+<span class="absolute left-[56%] -translate-x-1/2 w-4 h-4 rounded-full bg-secondary flex items-center justify-center text-[10px] text-on-secondary font-bold" title="Caner: 5.00">C</span>
+<!-- Zeynep: 5.25 (67%) -->
+<span class="absolute left-[66%] -translate-x-1/2 w-4 h-4 rounded-full bg-tertiary flex items-center justify-center text-[10px] text-on-tertiary font-bold" title="Zeynep: 5.25">Z</span>
+<!-- Ahmet & Mehmet: 5.50 (74%) -->
+<span class="absolute left-[74%] -translate-x-1/2 w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-[10px] text-on-primary font-bold shadow-md ring-offset-2" title="Ahmet &amp; Mehmet: 5.50">Siz</span>
+<!-- Selin: 5.75 (82%) -->
+<span class="absolute left-[84%] -translate-x-1/2 w-4 h-4 rounded-full bg-surface-variant flex items-center justify-center text-[10px] text-on-surface font-bold" title="Selin: 5.75">S</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm px-1">
+<span>Düşük Yük (Öncelikli)</span>
+<span>Dengeli Aralık (±0.35)</span>
+<span>Yüksek Yük</span>
+</div>
+</div>
+<!-- Leaderboard Header & Filter Pills -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">leaderboard</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Personel Puan Sıralaması</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 Kişi</span>
+</div>
+<!-- Roster Leaderboard Cards List -->
+<div class="space-y-space-xs">
+<!-- 1. Selin Demir -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm transition-all hover:bg-surface-container-high">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-headline-sm text-headline-sm text-on-surface-variant shrink-0">
+            1
+          </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface truncate">Selin Demir</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">Memur</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate block">15 Vardiya • Son nöbet: Dün</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="flex items-baseline justify-end gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">5.75</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">P</span>
+</div>
+<span class="font-metric-mono text-label-sm text-secondary">+0.30 Δ</span>
+</div>
+</div>
+<!-- Details Breakdown -->
+<div class="bg-surface-container-low p-2 rounded-lg flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm mb-2">
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>11 Hafta İçi (2.75 P)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>4 Hafta Sonu (3.00 P)</span>
+</div>
+</div>
+<!-- Micro Progress to Max Gauge -->
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-surface-variant h-full rounded-full" style="width: 95%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Yük Durumu</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Normal</span>
+</div>
+</div>
+<!-- 2. Ahmet Yılmaz (Kullanıcı / Siz) - Highlighted Card -->
+<div class="bg-surface-container-high rounded-xl p-space-md shadow-md relative overflow-hidden transition-all">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-headline-sm text-headline-sm text-on-primary-container font-bold shrink-0 shadow-sm">
+            2
+          </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Ahmet Yılmaz</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold">Siz</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary font-medium truncate block">14 Vardiya • Son nöbet: 3 gün önce</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="flex items-baseline justify-end gap-1">
+<span class="font-headline-sm text-headline-sm text-primary font-metric-mono font-bold">5.50</span>
+<span class="font-label-sm text-label-sm text-primary">P</span>
+</div>
+<span class="font-metric-mono text-label-sm text-tertiary">+0.05 Δ (İdeal)</span>
+</div>
+</div>
+<!-- Shift Count Box -->
+<div class="bg-surface-container-lowest p-2 rounded-lg flex items-center justify-between text-on-surface font-body-sm text-body-sm mb-2 shadow-inner">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>10 Hafta İçi (<span class="font-metric-mono text-primary">2.50 P</span>)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>4 Hafta Sonu (<span class="font-metric-mono text-secondary">3.00 P</span>)</span>
+</div>
+</div>
+<!-- Fairness Gauge -->
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden p-0.5">
+<div class="bg-gradient-to-r from-primary to-tertiary h-full rounded-full" style="width: 89%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1.5">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">Denge: Kusursuz Eşitlik</span>
+</div>
+<span class="font-metric-mono text-label-sm text-on-surface-variant">%98.1 Uyum</span>
+</div>
+</div>
+<!-- 3. Mehmet Çelik -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm transition-all hover:bg-surface-container-high">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-headline-sm text-headline-sm text-on-surface-variant shrink-0">
+            3
+          </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface truncate">Mehmet Çelik</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">Teknisyen</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate block">16 Vardiya • Son nöbet: 5 gün önce</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="flex items-baseline justify-end gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">5.50</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">P</span>
+</div>
+<span class="font-metric-mono text-label-sm text-tertiary">+0.05 Δ</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 rounded-lg flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm mb-2">
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>14 Hafta İçi (3.50 P)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>2 Hafta Sonu (1.50 P)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 89%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Denge Durumu</span>
+<span class="font-label-sm text-label-sm text-tertiary">İdeal</span>
+</div>
+</div>
+<!-- 4. Zeynep Kaya (Sıradaki Nöbete Aday Rozeti) -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm transition-all hover:bg-surface-container-high relative overflow-hidden">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-headline-sm text-headline-sm text-on-surface-variant shrink-0">
+            4
+          </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface truncate">Zeynep Kaya</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">Sorumlu</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate block">13 Vardiya • Son nöbet: 8 gün önce</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="flex items-baseline justify-end gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">5.25</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">P</span>
+</div>
+<span class="font-metric-mono text-label-sm text-secondary-fixed-dim">-0.20 Δ</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 rounded-lg flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm mb-2">
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>9 Hafta İçi (2.25 P)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>4 Hafta Sonu (3.00 P)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 78%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1.5">
+<div class="flex items-center gap-1 bg-surface-container-highest px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[13px] text-secondary">update</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Sıradaki Nöbete Aday</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Yakın Atama</span>
+</div>
+</div>
+<!-- 5. Caner Şen (Öncelikli Atama) -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm transition-all hover:bg-surface-container-high">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-headline-sm text-headline-sm text-on-surface-variant shrink-0">
+            5
+          </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface truncate">Caner Şen</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">Gözetmen</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate block">12 Vardiya • Son nöbet: 11 gün önce</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<div class="flex items-baseline justify-end gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">5.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">P</span>
+</div>
+<span class="font-metric-mono text-label-sm text-error">-0.45 Δ</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 rounded-lg flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm mb-2">
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>8 Hafta İçi (2.00 P)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>4 Hafta Sonu (3.00 P)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1.5">
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-error font-semibold">Öncelikli (Hafta Sonu Sırası)</span>
+</div>
+<span class="font-metric-mono text-label-sm text-on-surface-variant">-0.45 P Fark</span>
+</div>
+</div>
+</div>
+<!-- Operational Simulation / Algoritma Denetleme Aksiyonu -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md space-y-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+</div>
+<div class="min-w-0">
+<h3 class="font-label-lg text-label-lg text-on-surface">Sonraki Çizelge Simülasyonu</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Otomatik nöbet dağıtımı haftalık dengeyi nasıl değiştirecek?</p>
+</div>
+</div>
+<div class="p- space-sm bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">tune</span>
+<span class="font-body-sm text-body-sm text-on-surface">Hafta Sonu Dağıtımı Simüle Et</span>
+</div>
+<button class="px-3 py-1.5 bg-primary-container text-on-primary-container font-label-sm text-label-sm rounded hover:bg-primary transition-colors flex items-center gap-1 shadow-sm" id="sim-btn" type="button" (click)="simOpen.set(!simOpen())" [attr.aria-expanded]="simOpen()">
+<span>{{ simOpen() ? "Kapat" : "Çalıştır" }}</span>
+<span class="material-symbols-outlined text-[14px]">{{ simOpen() ? "expand_less" : "play_arrow" }}</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-sm text-on-surface text-body-sm border-0 animate-fade-in" id="sim-result" [class.hidden]="!simOpen()">
+<div class="flex items-center gap-2 text-tertiary font-semibold mb-1">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+<span>Öngörülen Eşitleme:</span>
+</div>
+<p class="text-on-surface-variant text-body-sm">
+        Caner Şen Cumartesi (0.75 P) vardiyasına eklendiğinde standart sapma <span class="font-metric-mono text-tertiary">0.21 P</span> seviyesine inerek %99.4 adalet oranı sağlanacak.
+      </p>
+</div>
+</div>
+<!-- Educational Trust Footer Note -->
+<div class="flex items-center justify-center gap-space-xs py-space-sm text-on-surface-variant opacity-80">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="font-label-sm text-label-sm text-center">NöbetPro Adil Dağıtım Algoritması şeffaf ve denetlenebilir kurallarla çalışır.</span>
+</div>
+</div>
+
+</main>

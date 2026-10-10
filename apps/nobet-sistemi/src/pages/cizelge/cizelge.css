@@ -1,0 +1,12 @@
+.filter-chip.is-active {
+  background-color: #2563eb;
+  color: #eeefff;
+  font-weight: 600;
+}
+
+.cal-day.is-selected {
+  background-color: #2563eb;
+  color: #eeefff;
+  transform: scale(1.05);
+  z-index: 10;
+}
