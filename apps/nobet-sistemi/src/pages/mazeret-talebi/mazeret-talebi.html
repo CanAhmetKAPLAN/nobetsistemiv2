@@ -1,0 +1,301 @@
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Geri" class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface hover:text-secondary hover:bg-surface-container-high transition-colors flex-shrink-0" type="button" (click)="goBack()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="NöbetPro logosu" class="h-9 w-9 rounded-lg object-cover flex-shrink-0" src="nobetlogo-64.png" srcset="nobetlogo-64.png 1x, nobetlogo-256.png 3x" width="36" height="36"/><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Yeni Mazeret Talebi</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="relative flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-outline-variant/30" src="https://lh3.googleusercontent.com/aida/AEtjO1XjYtkF0dQFtM87X1VstyvTtNQmH5BEUk2HoVyha0Q6e5_7cHEex5Odss88i9y3l0mjTkAQfp-Y7vDMKBb5K46L55wt5nnF_EVpboeBelMpispYP9mHGdI-k_OKJo1E2RWK3LiGYehQf0xv3KrBPzS9JlaZrngoxa4oJ9d1tGwJALzDT3JYEs5M5ojkw2JYcpB1QvfGNifnyTjBOsrU4c1lABHn0xzb5KjXMJ_YzVdmemRrLX59wt8mIg"/></div></div></div></header>
+<main class="flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full text-on-surface">
+<!-- Operational Header Notification & Period Status -->
+<section class="px-gutter pt-space-md pb-space-xs flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Kasım 2024 Dağıtımı İçin Aktif</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-secondary text-[14px]">tune</span>
+<span class="font-metric-mono text-[11px] text-secondary">Adil Puanlama v4.2</span>
+</div>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Yeni Mazeret &amp; Nöbet Kısıt Bildirimi</h2>
+</section>
+<!-- Fairness Rule & Quota Balance Card -->
+<section class="px-gutter py-space-xs">
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute -right-8 -bottom-8 w-28 h-28 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-primary text-[20px]">verified_user</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-lg text-label-lg text-primary">Kural ve Kota Hatırlatması</span>
+<span class="font-label-sm text-label-sm bg-surface-container-high text-tertiary px-2 py-0.5 rounded-full font-semibold">2 / 4 Gün Kullanılabilir</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Ayda en fazla <span class="text-on-surface font-semibold">4 gün</span> muafiyet talep edilebilir. Kabul edilen günlerde nöbet motoru atama yapmaz; hafta içi <span class="text-secondary font-metric-mono">(0.25p)</span> ve hafta sonu <span class="text-secondary font-metric-mono">(0.75p)</span> denge skoru korunur.
+          </p>
+</div>
+</div>
+<!-- Quota Meter -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Dönem Muafiyet Kotası</span>
+<span class="text-on-surface font-metric-mono">%50 Kullanıldı (2 Gün Rezerve)</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-primary-container rounded-full w-1/2 transition-all duration-500"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Reason Selection -->
+<section class="px-gutter py-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface">Mazeret &amp; Talep Türü</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Zorunlu Seçim</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm" id="reason-grid">
+<!-- Item 1 -->
+<button class="reason-chip flex flex-col items-start p-space-sm bg-surface-container rounded-xl text-left transition-all active:scale-95 relative group" data-type="annual" type="button" [class.is-selected]="reason() === 'annual'" [attr.aria-pressed]="reason() === 'annual'" (click)="reason.set('annual')">
+@if (reason() === 'annual') {
+<div class="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+}
+<div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface mb-2 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Yıllık İzin</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant line-clamp-1 mt-0.5">Planlı izin muafiyeti</span>
+</button>
+<!-- Item 2 (Pre-selected) -->
+<button class="reason-chip flex flex-col items-start p-space-sm bg-surface-container rounded-xl text-left transition-all active:scale-95 relative group" data-type="health" type="button" [class.is-selected]="reason() === 'health'" [attr.aria-pressed]="reason() === 'health'" (click)="reason.set('health')">
+@if (reason() === 'health') {
+<div class="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+}
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-[18px]">medical_services</span>
+</div>
+<span class="font-label-lg text-label-lg text-primary font-semibold">Sağlık / Rapor</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant line-clamp-1 mt-0.5">Resmi hekim raporu</span>
+</button>
+<!-- Item 3 -->
+<button class="reason-chip flex flex-col items-start p-space-sm bg-surface-container rounded-xl text-left transition-all active:scale-95 relative group" data-type="official" type="button" [class.is-selected]="reason() === 'official'" [attr.aria-pressed]="reason() === 'official'" (click)="reason.set('official')">
+@if (reason() === 'official') {
+<div class="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+}
+<div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface mb-2 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Resmi Görev</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant line-clamp-1 mt-0.5">Sınav / Dış görev</span>
+</button>
+<!-- Item 4 -->
+<button class="reason-chip flex flex-col items-start p-space-sm bg-surface-container rounded-xl text-left transition-all active:scale-95 relative group" data-type="personal" type="button" [class.is-selected]="reason() === 'personal'" [attr.aria-pressed]="reason() === 'personal'" (click)="reason.set('personal')">
+@if (reason() === 'personal') {
+<div class="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+}
+<div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface mb-2 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">school</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Özel Mazeret</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant line-clamp-1 mt-0.5">Eğitim &amp; kişisel durum</span>
+</button>
+</div>
+</section>
+<!-- Date Selection & Calendar Block -->
+<section class="px-gutter py-space-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Nöbet Tutulamayacak Günler</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kasım 2024 Takvim Seçimi</p>
+</div>
+<span class="font-label-sm text-label-sm bg-primary-container text-on-primary-container px-2 py-1 rounded-md font-metric-mono font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">event_available</span>
+        4 - 5 Kasım (2 Gün Seçili)
+      </span>
+</div>
+<!-- Mini Calendar Card -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col gap-space-md">
+<!-- Calendar Days Strip (Interactive demo view for mobile) -->
+<div class="flex items-center justify-between gap-1 overflow-x-auto pb-1">
+<!-- Sun 03 -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-low min-w-[50px] opacity-60 hover:opacity-100 transition-all" type="button">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Paz</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">03</span>
+<span class="font-metric-mono text-[10px] text-secondary mt-0.5">0.75p</span>
+</button>
+<!-- Mon 04 (Selected) -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-primary-container text-on-primary-container min-w-[54px] shadow-sm transform scale-105 transition-all" type="button">
+<span class="font-label-sm text-[11px] text-on-primary-container opacity-90">Pzt</span>
+<span class="font-headline-sm text-headline-sm text-on-primary font-metric-mono font-bold">04</span>
+<span class="font-metric-mono text-[10px] text-on-primary-container mt-0.5">0.25p</span>
+</button>
+<!-- Tue 05 (Selected) -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-primary-container text-on-primary-container min-w-[54px] shadow-sm transform scale-105 transition-all" type="button">
+<span class="font-label-sm text-[11px] text-on-primary-container opacity-90">Sal</span>
+<span class="font-headline-sm text-headline-sm text-on-primary font-metric-mono font-bold">05</span>
+<span class="font-metric-mono text-[10px] text-on-primary-container mt-0.5">0.25p</span>
+</button>
+<!-- Wed 06 -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-low min-w-[50px] hover:bg-surface-container-highest transition-all" type="button">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Çar</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">06</span>
+<span class="font-metric-mono text-[10px] text-secondary mt-0.5">0.25p</span>
+</button>
+<!-- Thu 07 -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-low min-w-[50px] hover:bg-surface-container-highest transition-all" type="button">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Per</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">07</span>
+<span class="font-metric-mono text-[10px] text-secondary mt-0.5">0.25p</span>
+</button>
+<!-- Fri 08 -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-low min-w-[50px] hover:bg-surface-container-highest transition-all" type="button">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Cum</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">08</span>
+<span class="font-metric-mono text-[10px] text-secondary mt-0.5">0.25p</span>
+</button>
+</div>
+<!-- Weekend Warning Alert Snippet -->
+<div class="bg-surface-container-high rounded-lg p-2.5 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[18px] flex-shrink-0 mt-0.5">info</span>
+<div class="flex-1 text-body-sm font-body-sm text-on-surface-variant leading-tight">
+<strong class="text-on-surface">Hafta Sonu Notu:</strong> 09 Kasım gibi hafta sonu (0.75p) muafiyetleri onaylandığında, sonraki dağıtım periyodunda sistem hafta sonu nöbet önceliğinizi dengeler.
+        </div>
+</div>
+<!-- Scope Segmented Toggle -->
+<div class="flex flex-col gap-1.5 pt-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Vardiya Kapsamı</label>
+<div class="grid grid-cols-2 gap-1 bg-surface-container-lowest p-1 rounded-xl">
+<button class="py-2 px-3 rounded-lg font-label-md text-label-md transition-all flex items-center justify-center gap-1.5" id="toggle-full" type="button" [class]="scope() === 'full' ? 'bg-primary-container text-on-primary-container font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'" (click)="scope.set('full')">
+<span class="material-symbols-outlined text-[16px]">all_inclusive</span>
+            Tam Gün (24 Saat)
+          </button>
+<button class="py-2 px-3 rounded-lg font-label-md text-label-md transition-all flex items-center justify-center gap-1.5" id="toggle-part" type="button" [class]="scope() === 'part' ? 'bg-primary-container text-on-primary-container font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'" (click)="scope.set('part')">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+            Belirli Vardiya (V1 / V2)
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Documentation & Reason Input Section -->
+<section class="px-gutter py-space-sm flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-lg text-label-lg text-on-surface" for="excuse-desc">Mazeret Açıklaması (İsteğe Bağlı)</label>
+<textarea class="w-full bg-surface-container rounded-xl p-space-sm text-body-md font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary shadow-sm resize-none" id="excuse-desc" placeholder="Mazeret gerekçesini ve amir onay notunu yazınız..." rows="3"></textarea>
+</div>
+<!-- Upload Module with Pre-attached Demo File -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-on-surface">Ek Belge / Rapor Yükle</label>
+<span class="font-body-sm text-[11px] text-on-surface-variant">PDF, JPG, PNG (Maks 10MB)</span>
+</div>
+<!-- Upload Trigger Zone -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-surface-container-high transition-colors text-center relative group">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Dosya Seç veya Buraya Bırak</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Belge taraması veya mobil kamera ile yükleyin</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center gap-1 text-xs bg-surface-container-high text-on-surface px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span> Kamerayı Aç
+          </span>
+<span class="inline-flex items-center gap-1 text-xs bg-surface-container-high text-on-surface px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px]">folder_open</span> Dosya Gözat
+          </span>
+</div>
+</div>
+<!-- Uploaded Document Preview Chip -->
+<div class="bg-surface-container-high rounded-xl p-3 flex items-center justify-between gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/30 text-tertiary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate font-metric-mono">saglik_raporu_kasim.pdf</span>
+<div class="flex items-center gap-1 text-[11px] font-metric-mono text-tertiary">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+<span>1.2 MB • Doğrulandı</span>
+</div>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-error hover:bg-surface-container-highest transition-colors flex-shrink-0" title="Dosyayı Kaldır" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Smart Fairness & Algorithmic Impact Simulation -->
+<section class="px-gutter py-space-sm">
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col gap-space-sm relative">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">auto_graph</span>
+<h4 class="font-label-lg text-label-lg text-on-surface">Algoritmik Dağıtım Etkisi</h4>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary bg-tertiary-container/30 px-2 py-0.5 rounded-full font-metric-mono font-semibold">
+          %98.4 Adil Denge
+        </span>
+</div>
+<!-- Impact Metrics Visual Grid -->
+<div class="grid grid-cols-2 gap-space-sm pt-1">
+<div class="bg-surface-container-low p-2.5 rounded-lg flex flex-col gap-1">
+<span class="font-body-sm text-[11px] text-on-surface-variant">Kilitlenecek Puan</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-secondary font-metric-mono">0.50</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Puan</span>
+</div>
+<span class="font-body-sm text-[10px] text-on-surface-variant">2 Hafta İçi Nöbeti</span>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-lg flex flex-col gap-1">
+<span class="font-body-sm text-[11px] text-on-surface-variant">Tahmini Kalan Yük</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-metric-mono">5.25</span>
+<span class="font-label-sm text-label-sm text-tertiary font-metric-mono">+0.00 Δ</span>
+</div>
+<span class="font-body-sm text-[10px] text-tertiary">Hedef aralıkta kalıyor</span>
+</div>
+</div>
+<!-- Verification Step Footnote -->
+<div class="flex items-center gap-2 pt-1 text-on-surface-variant text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">approval</span>
+<span>Onay Süreci: Birim Sorumlusu Onayı + Algoritma Doğrulaması</span>
+</div>
+</div>
+</section>
+<!-- Action Bar & Controls -->
+<section class="px-gutter pt-space-md pb-space-2xl flex flex-col gap-space-sm">
+<button class="w-full font-label-lg text-label-lg py-3.5 px-space-md rounded-xl shadow-lg active:scale-[0.99] transition-all flex items-center justify-center gap-2 font-semibold" id="submit-btn" type="button" [class]="submitState() === 'sent' ? 'bg-tertiary-container text-on-tertiary' : 'bg-primary-container text-on-primary hover:brightness-110'" [disabled]="submitState() !== 'idle'" (click)="submit()">
+@switch (submitState()) {
+@case ('sending') {
+<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span>
+<span>İşleniyor...</span>
+}
+@case ('sent') {
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Talep Başarıyla İletildi</span>
+}
+@default {
+<span class="material-symbols-outlined text-[20px]">send</span>
+<span>Talebi Oluştur ve Onaya Gönder</span>
+}
+}
+</button>
+<button class="w-full bg-surface-container-high text-on-surface font-label-lg text-label-lg py-3 px-space-md rounded-xl hover:bg-surface-container-highest active:scale-[0.99] transition-all flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+<span>Taslak Olarak Kaydet</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 px-2 text-center text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px] flex-shrink-0">lock_clock</span>
+<span>Talepler, algoritma çalıştırılmadan 48 saat öncesine kadar serbestçe düzenlenebilir.</span>
+</div>
+</section>
+</div>
+
+</main>

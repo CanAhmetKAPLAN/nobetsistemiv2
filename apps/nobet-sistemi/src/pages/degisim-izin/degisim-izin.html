@@ -189,65 +189,19 @@
 </div>
 <!-- VIEW 2: MAZERET & NÖBET KISITLARI BÖLÜMÜ -->
 <div class="flex-col space-y-space-md" id="view-mazeret" [class.hidden]="activeTab() !== 'mazeret'" [class.flex]="activeTab() === 'mazeret'">
-<!-- Algoritma Kısıtı Ekleme Formu -->
-<div class="bg-surface-container rounded-xl p-space-md shadow-md space-y-space-sm">
-<div class="flex items-center gap-space-xs">
-<span class="material-symbols-outlined text-[22px] text-primary">edit_calendar</span>
-<h2 class="font-headline-sm text-headline-sm text-on-surface">Algoritma Kısıtı Ekle</h2>
+<!-- Mazeret Talebi Sayfasına Geçiş -->
+<a class="bg-surface-container rounded-xl p-space-md shadow-md flex items-center gap-space-sm hover:bg-surface-container-high transition-all active:scale-[0.99]" routerLink="/degisim-izin/mazeret-talebi">
+<div class="w-11 h-11 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">edit_calendar</span>
 </div>
+<div class="flex-1 min-w-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Yeni Mazeret Talebi</h2>
 <p class="font-body-sm text-body-sm text-on-surface-variant">
         Belirttiğiniz tarihler otomatik nöbet planlamasında dışlanır; sistem bu günlerde size görev atamaz.
       </p>
-<form class="space-y-space-sm pt-1" (submit)="$event.preventDefault(); addConstraint()">
-<div>
-<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Mazeret Türü</label>
-<div class="grid grid-cols-2 gap-space-xs">
-<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md cursor-pointer hover:bg-surface-container-high transition-all">
-<input checked="" class="accent-primary-container" name="constraint_type" type="radio" value="izin"/>
-<span>Yıllık / İdari İzin</span>
-</label>
-<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md cursor-pointer hover:bg-surface-container-high transition-all">
-<input class="accent-primary-container" name="constraint_type" type="radio" value="sinav"/>
-<span>Sınav &amp; Eğitim</span>
-</label>
-<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md cursor-pointer hover:bg-surface-container-high transition-all">
-<input class="accent-primary-container" name="constraint_type" type="radio" value="saglik"/>
-<span>Rapor / Sağlık</span>
-</label>
-<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md cursor-pointer hover:bg-surface-container-high transition-all">
-<input class="accent-primary-container" name="constraint_type" type="radio" value="gorev"/>
-<span>Dış Görevlendirme</span>
-</label>
 </div>
-</div>
-<div class="grid grid-cols-2 gap-space-xs">
-<div>
-<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Başlangıç Tarihi</label>
-<div class="bg-surface-container-low rounded-lg p-2 flex items-center justify-between text-on-surface font-label-md text-label-md">
-<span>12 Kas 2024</span>
-<span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span>
-</div>
-</div>
-<div>
-<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Bitiş Tarihi</label>
-<div class="bg-surface-container-low rounded-lg p-2 flex items-center justify-between text-on-surface font-label-md text-label-md">
-<span>15 Kas 2024</span>
-<span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span>
-</div>
-</div>
-</div>
-<div>
-<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Gerekçe &amp; Belge No (Opsiyonel)</label>
-<div class="bg-surface-container-low rounded-lg p-2 text-on-surface-variant font-body-sm text-body-sm">
-<span>Örn: Yüksek Lisans Sınav Belgesi veya İdari İzin Formu...</span>
-</div>
-</div>
-<button class="w-full py-2.5 bg-primary-container hover:bg-primary-container/90 text-on-primary-container rounded-lg font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99]" type="submit">
-<span class="material-symbols-outlined text-[20px]">add_task</span>
-          Bana Bu Tarihlerde Nöbet Yazma
-        </button>
-</form>
-</div>
+<span class="material-symbols-outlined text-on-surface-variant shrink-0">chevron_right</span>
+</a>
 <!-- Aktif Kısıtlar Listesi -->
 <div class="bg-surface-container rounded-xl p-space-md shadow-md space-y-space-sm">
 <div class="flex items-center justify-between">

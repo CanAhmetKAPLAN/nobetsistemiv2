@@ -1,11 +1,12 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 type Tab = 'takas' | 'mazeret' | 'onay';
 type SwapCardState = 'open' | 'accepted' | 'rejected' | 'removed';
 
 @Component({
   selector: 'app-degisim-izin',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './degisim-izin.html',
   styleUrl: './degisim-izin.css',
 })
@@ -33,11 +34,5 @@ export class DegisimIzin {
   protected publishTrade() {
     this.swapModalOpen.set(false);
     alert('Takas talebiniz havuzda başarıyla yayınlandı!');
-  }
-
-  protected addConstraint() {
-    alert(
-      'Algoritma kısıtı kaydedildi. Yeni oluşturulacak çizelgelerde bu tarihler kilitli tutulacaktır.',
-    );
   }
 }

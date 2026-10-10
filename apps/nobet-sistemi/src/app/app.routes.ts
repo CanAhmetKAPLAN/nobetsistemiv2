@@ -26,5 +26,14 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('../pages/degisim-izin/degisim-izin').then((m) => m.DegisimIzin),
   },
+  {
+    path: 'degisim-izin/mazeret-talebi',
+    title: 'Mazeret Talebi',
+    data: { hideNav: true },
+    loadComponent: () =>
+      import('../pages/mazeret-talebi/mazeret-talebi').then(
+        (m) => m.MazeretTalebi,
+      ),
+  },
   { path: '**', redirectTo: 'nobetlerim' },
 ];

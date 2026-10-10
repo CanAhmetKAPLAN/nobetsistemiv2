@@ -1,4 +1,5 @@
 <router-outlet></router-outlet>
+@if (showNav()) {
 <nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.45)]">
   <div class="flex items-center justify-around h-16 px-space-xs">
     @for (item of navItems; track item.path) {
@@ -15,3 +16,4 @@
     }
   </div>
 </nav>
+}
