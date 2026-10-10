@@ -1,12 +1,12 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../app/auth/auth.service';
 
 type AlgoMode = 'balanced' | 'weekend' | 'weekday';
 
 @Component({
   selector: 'app-profil',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './profil.html',
   styleUrl: './profil.css',
 })

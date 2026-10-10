@@ -1,0 +1,356 @@
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="NöbetPro logosu" class="h-9 w-9 rounded-lg object-cover shrink-0" src="nobetlogo-64.png" srcset="nobetlogo-64.png 1x, nobetlogo-256.png 3x" width="36" height="36"/><div class="flex flex-col"><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase">NöbetPro</span><span class="font-headline-sm text-headline-sm text-on-surface leading-none">Bildirimler</span></div></div><div class="flex items-center gap-space-xs"><div aria-label="Bildirimler" aria-current="page" class="w-11 h-11 flex items-center justify-center relative text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span>@if (!allRead()) {
+<span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary-container ring-2 ring-surface"></span>
+}</div><a aria-label="Profil &amp; Ayarlar" class="w-11 h-11 flex items-center justify-center rounded-full hover:ring-2 hover:ring-outline-variant transition-all" routerLink="/profil"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XjYtkF0dQFtM87X1VstyvTtNQmH5BEUk2HoVyha0Q6e5_7cHEex5Odss88i9y3l0mjTkAQfp-Y7vDMKBb5K46L55wt5nnF_EVpboeBelMpispYP9mHGdI-k_OKJo1E2RWK3LiGYehQf0xv3KrBPzS9JlaZrngoxa4oJ9d1tGwJALzDT3JYEs5M5ojkw2JYcpB1QvfGNifnyTjBOsrU4c1lABHn0xzb5KjXMJ_YzVdmemRrLX59wt8mIg"/></a></div></div></header>
+<main class="flex-1 flex flex-col relative w-full px-gutter pt-16 pb-20 bg-surface"><div class="flex flex-col w-full space-y-space-md">
+<!-- Operational Header & Live Status Row -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-metric-mono text-metric-mono text-tertiary uppercase tracking-wider">Algoritma v4.2 Aktif</span>
+<span class="text-outline text-label-sm">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Canlı Senkronize</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button aria-label="Tümünü Okundu Say" class="flex items-center gap-1 px-space-sm py-1 rounded-xl bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors text-label-sm font-label-sm" id="markAllReadBtn" type="button" [class.opacity-75]="allRead()" [disabled]="allRead()" (click)="allRead.set(true)">
+<span class="material-symbols-outlined text-[16px] text-tertiary">{{ allRead() ? 'done' : 'done_all' }}</span>
+<span>{{ allRead() ? 'Tümü Okundu' : 'Tümünü Oku' }}</span>
+</button>
+<button aria-label="Filtrele" class="w-7 h-7 flex items-center justify-center rounded-xl bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" id="filterToggleBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Bildirimler &amp; Günlük</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Algoritma kararları, takas onayları ve sistem kayıtları</p>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary font-metric-mono text-label-sm font-semibold">12 Kayıt</span>
+</div>
+</div>
+<!-- Filter Pills Bar (Horizontal Scrollable) -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 -mx-gutter px-gutter no-scrollbar" role="tablist">
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap transition-all" data-filter="all" type="button" role="tab" [attr.aria-selected]="filter() === 'all'" [class]="filter() === 'all' ? 'bg-primary-container text-on-primary-container shadow-sm' : 'bg-surface-container text-on-surface-variant hover:text-on-surface'" (click)="filter.set('all')">
+<span>Tümü</span>
+<span class="px-1.5 py-0.2 rounded-full bg-on-primary-container/20 text-on-primary-container text-label-sm font-metric-mono">12</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap transition-all" data-filter="algo" type="button" role="tab" [attr.aria-selected]="filter() === 'algo'" [class]="filter() === 'algo' ? 'bg-primary-container text-on-primary-container shadow-sm' : 'bg-surface-container text-on-surface-variant hover:text-on-surface'" (click)="filter.set('algo')">
+<span class="material-symbols-outlined text-[16px] text-secondary">smart_toy</span>
+<span>Algoritma</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-secondary text-label-sm font-metric-mono">4</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap transition-all" data-filter="swap" type="button" role="tab" [attr.aria-selected]="filter() === 'swap'" [class]="filter() === 'swap' ? 'bg-primary-container text-on-primary-container shadow-sm' : 'bg-surface-container text-on-surface-variant hover:text-on-surface'" (click)="filter.set('swap')">
+<span class="material-symbols-outlined text-[16px] text-tertiary">swap_horiz</span>
+<span>Takas</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-tertiary text-label-sm font-metric-mono">3</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap transition-all" data-filter="leave" type="button" role="tab" [attr.aria-selected]="filter() === 'leave'" [class]="filter() === 'leave' ? 'bg-primary-container text-on-primary-container shadow-sm' : 'bg-surface-container text-on-surface-variant hover:text-on-surface'" (click)="filter.set('leave')">
+<span class="material-symbols-outlined text-[16px] text-primary">event_busy</span>
+<span>Mazeret &amp; İzin</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-primary text-label-sm font-metric-mono">3</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap transition-all" data-filter="security" type="button" role="tab" [attr.aria-selected]="filter() === 'security'" [class]="filter() === 'security' ? 'bg-primary-container text-on-primary-container shadow-sm' : 'bg-surface-container text-on-surface-variant hover:text-on-surface'" (click)="filter.set('security')">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">security</span>
+<span>Güvenlik</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-on-surface-variant text-label-sm font-metric-mono">2</span>
+</button>
+</div>
+<!-- Pinned Operational Spotlight Card (Bento Master) -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low shadow-md p-space-md">
+<!-- Subtle algorithmic circuit motif -->
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
+<div class="absolute top-0 right-0 p-3 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[64px] text-primary">auto_graph</span>
+</div>
+<div class="flex items-center gap-space-xs mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+        Kritik Döngü Tamamlandı
+      </span>
+<span class="font-metric-mono text-label-sm text-on-surface-variant">14 dk önce</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-1">Kasım 2024 Aylık Dağıtım Döngüsü</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md leading-relaxed">
+      Yapay zeka optimizasyon motoru 28 personeli sıfır çakışma ve <span class="text-tertiary font-semibold">%99.2 adalet endeksi</span> ile adil dağıttı.
+    </p>
+<!-- Metrics Strip -->
+<div class="grid grid-cols-2 gap-space-xs mb-space-md">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest/70 backdrop-blur-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Hafta İçi</span>
+<span class="font-metric-mono text-metric-mono text-secondary">0.25 pt</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest/70 backdrop-blur-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Hafta Sonu</span>
+<span class="font-metric-mono text-metric-mono text-secondary">0.75 pt</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest/70 backdrop-blur-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sapma İndeksi</span>
+<span class="font-metric-mono text-metric-mono text-tertiary">σ &lt; 0.12</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest/70 backdrop-blur-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toplam Vardiya</span>
+<span class="font-metric-mono text-metric-mono text-on-surface">60 Slot</span>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>Adalet Motoru v4.2</span>
+</div>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md hover:bg-primary-container/90 active:scale-95 transition-all shadow-sm">
+<span>Yeni Çizelgeyi İncele</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Notification Stream Group: BUGÜN -->
+<section class="space-y-space-sm" data-group="today" [class.hidden]="!anyVisible(['swap', 'algo'])">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">Bugün</span>
+</div>
+<span class="font-metric-mono text-label-sm text-on-surface-variant">3 Yeni Olay</span>
+</div>
+<!-- Card 1: Swap Approved -->
+<div class="notif-item relative rounded-xl bg-surface-container p-space-md shadow-sm transition-all hover:bg-surface-container-high" data-category="swap" [class.hidden]="!isVisible('swap')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/30 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-body-lg text-on-surface font-semibold">Nöbet Değişimi Onaylandı</h3>
+@if (!allRead()) {
+<span class="w-2 h-2 rounded-full bg-primary shrink-0" title="Okunmadı"></span>
+}
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">16 Kas Cumartesi ↔ 22 Kas Cuma</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary font-label-sm text-label-sm font-semibold whitespace-nowrap">Onaylandı</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm leading-relaxed">
+        Ahmet K. ile talep ettiğiniz <strong class="text-on-surface font-semibold">16 Kasım (0.75p)</strong> ile <strong class="text-on-surface font-semibold">22 Kasım (0.25p)</strong> takası birim amirince onaylandı. Puan farkı (<span class="text-tertiary font-metric-mono font-semibold">+0.50p</span>) adalet havuzunuza aktarıldı.
+      </p>
+<!-- Meta & Actions -->
+<div class="flex items-center justify-between pt-1">
+<span class="font-metric-mono text-label-sm text-on-surface-variant">Bugün, 11:42 • Amir Onayı</span>
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-fixed font-label-md text-label-md transition-colors">
+<span>Detayı Gör</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Algorithm 48-Hour Rest Rule -->
+<div class="notif-item relative rounded-xl bg-surface-container p-space-md shadow-sm transition-all hover:bg-surface-container-high" data-category="algo" [class.hidden]="!isVisible('algo')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-secondary-container/20 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-body-lg text-on-surface font-semibold">48 Saat Dinlenme Kuralı Uygulandı</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Otomatik Güvenlik Protokolü</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm font-semibold whitespace-nowrap">Otomatik Denge</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm leading-relaxed">
+        Algoritma, ardışık vardiya emniyeti gereği 8 Kasım tarihindeki potansiyel nöbetinizi denge havuzundaki <strong class="text-on-surface font-semibold">Zeynep A.</strong> personeline devretti. Yasal dinlenme süreniz tam korumaya alındı.
+      </p>
+<!-- Impact chip -->
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low mb-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">verified_user</span>
+<span class="font-body-sm text-body-sm text-on-surface">Maksimum haftalık mesai sınırı (45s) ihlali önlendi</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-metric-mono text-label-sm text-on-surface-variant">Bugün, 09:15 • Algoritma Motoru</span>
+<span class="font-metric-mono text-label-sm text-tertiary">0.00p Etki</span>
+</div>
+</div>
+<!-- Card 3: Interactive Pending Swap Offer -->
+<div class="notif-item relative rounded-xl bg-surface-container p-space-md shadow-sm transition-all hover:bg-surface-container-high" data-category="swap" [class.hidden]="!isVisible('swap')" id="swapRequestCard">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">move_up</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-body-lg text-on-surface font-semibold">Nöbet Devir Talebi Geldi</h3>
+<span class="px-1.5 py-0.2 rounded bg-error-container text-on-error-container font-label-sm text-[10px] font-bold">YANIT BEKLİYOR</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Mehmet Y. (Saha Operasyon)</p>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm leading-relaxed">
+        Mehmet Y., sizin <strong class="text-on-surface font-semibold">24 Kasım Pazar (0.75p)</strong> nöbetinizi devralmak istiyor. Karşılığında sunduğu gün: <strong class="text-on-surface font-semibold">29 Kasım Cuma (0.25p)</strong>.
+      </p>
+<!-- Shift comparison mini-panel -->
+<div class="grid grid-cols-2 gap-space-xs p-2 rounded-lg bg-surface-container-low mb-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Vereceğiniz Nöbet</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">24 Kas Pazar</span>
+<span class="font-metric-mono text-label-sm text-secondary">0.75 Puan</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Alacağınız Nöbet</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">29 Kas Cuma</span>
+<span class="font-metric-mono text-label-sm text-tertiary">0.25 Puan (+0.50 Kredi)</span>
+</div>
+</div>
+<!-- Action Buttons Pair -->
+@if (swapResponse() === null) {
+<div class="flex items-center gap-space-sm pt-1" id="swapActionButtons">
+<button class="flex-1 py-2 px-3 rounded-lg bg-tertiary-container text-on-tertiary-container font-label-md text-label-md font-semibold hover:bg-tertiary-container/90 active:scale-95 transition-all text-center flex items-center justify-center gap-1" id="acceptSwapBtn" type="button" (click)="swapResponse.set('accepted')">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span>Kabul Et</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-error hover:bg-surface-container-highest font-label-md text-label-md transition-all text-center flex items-center justify-center gap-1" id="rejectSwapBtn" type="button" (click)="swapResponse.set('rejected')">
+<span class="material-symbols-outlined text-[18px]">close</span>
+<span>Reddet</span>
+</button>
+</div>
+} @else {
+<div class="pt-2 text-center font-label-md text-label-md" id="swapFeedback">
+@if (swapResponse() === 'accepted') {
+<span class="text-tertiary flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[18px]">task_alt</span> Takas kabul edildi. Amir onayına gönderildi.</span>
+} @else {
+<span class="text-on-surface-variant flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[18px]">cancel</span> Takas teklifi reddedildi.</span>
+}
+</div>
+}
+<div class="flex items-center justify-between pt-2">
+<span class="font-metric-mono text-label-sm text-on-surface-variant">Bugün, 08:30 • 6 saat içinde sona eriyor</span>
+</div>
+</div>
+</section>
+<!-- Notification Stream Group: DÜN -->
+<section class="space-y-space-sm" data-group="yesterday" [class.hidden]="!anyVisible(['leave', 'security'])">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">history</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Dün</span>
+</div>
+<span class="font-metric-mono text-label-sm text-on-surface-variant">2 Kayıt</span>
+</div>
+<!-- Card 4: Medical Leave Approval -->
+<div class="notif-item relative rounded-xl bg-surface-container p-space-md shadow-sm transition-all hover:bg-surface-container-high" data-category="leave" [class.hidden]="!isVisible('leave')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/20 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">medical_services</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-body-lg text-on-surface font-semibold">Sağlık Raporu Mazeretiniz Onaylandı</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">4-5 Kasım (2 Günlük İzin)</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary font-label-sm text-label-sm font-semibold whitespace-nowrap">Kabul Edildi</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm leading-relaxed">
+        4-5 Kasım tarihli sağlık mazereti belgeniz amir onayından geçti. Belirtilen günlerde nöbet havuzundan muaf tutuldunuz ve algoritma kotanız <span class="text-secondary font-metric-mono">-0.50p</span> denge ayarıyla güncellendi.
+      </p>
+<div class="flex items-center justify-between pt-1">
+<span class="font-metric-mono text-label-sm text-on-surface-variant">Dün, 16:20 • İK &amp; Amir Onayı</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary">check_circle</span>
+</div>
+</div>
+<!-- Card 5: Google Calendar Sync -->
+<div class="notif-item relative rounded-xl bg-surface-container p-space-md shadow-sm transition-all hover:bg-surface-container-high" data-category="security" [class.hidden]="!isVisible('security')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-body-lg text-on-surface font-semibold">Google Takvim Canlı Senkronizasyonu</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">iCal Kurumsal Entegrasyon</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary font-label-sm text-label-sm font-semibold whitespace-nowrap">Senkronize</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm leading-relaxed">
+        Kasım ayı onaylanan tüm vardiyalarınız şifrelenmiş kurumsal iCal kanalı aracılığıyla kişisel Google Takvim hesabınıza başarıyla yansıtıldı.
+      </p>
+<div class="flex items-center justify-between pt-1">
+<span class="font-metric-mono text-label-sm text-on-surface-variant">Dün, 14:05 • Bulut Senkronizasyonu</span>
+<span class="font-metric-mono text-label-sm text-primary font-semibold">5 Etkinlik Aktarıldı</span>
+</div>
+</div>
+</section>
+<!-- Notification Stream Group: GEÇMİŞ GÜNLER -->
+<section class="space-y-space-sm" data-group="past" [class.hidden]="!anyVisible(['algo'])">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">calendar_month</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Geçmiş Günler</span>
+</div>
+<span class="font-metric-mono text-label-sm text-on-surface-variant">1 Kayıt</span>
+</div>
+<!-- Card 6: Holiday Point Update -->
+<div class="notif-item relative rounded-xl bg-surface-container p-space-md shadow-sm transition-all hover:bg-surface-container-high" data-category="algo" [class.hidden]="!isVisible('algo')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">balance</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-body-lg text-on-surface font-semibold">Resmi Tatil Puanı Güncellemesi</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">29 Ekim Cumhuriyet Bayramı</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">Bilgilendirme</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm leading-relaxed">
+        29 Ekim resmi tatil nöbet katsayısı (<strong class="text-on-surface font-semibold">1.00 Tam Puan</strong>) geçmiş döneme kümülatif olarak eklendi. Yıllık toplam nöbet adalet grafiğinize yansıtıldı.
+      </p>
+<div class="flex items-center justify-between pt-1">
+<span class="font-metric-mono text-label-sm text-on-surface-variant">2 gün önce • Algoritma Sayacı</span>
+<span class="font-metric-mono text-label-sm text-secondary font-semibold">+1.00 Puan</span>
+</div>
+</div>
+</section>
+<!-- Preferences & Notification Channels CTA Card -->
+<div class="rounded-xl bg-surface-container-low p-space-md shadow-sm">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">tune</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-body-lg text-on-surface font-semibold">Bildirim ve Uyarı Tercihleri</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm leading-relaxed">
+          Push, SMS, E-Posta ve yapay zeka acil dengeleme alarmlarını nöbet rolünüze göre özelleştirin.
+        </p>
+<!-- Preference Toggles Mini Grid -->
+<div class="space-y-2 mb-space-md">
+<div class="flex items-center justify-between py-1 px-2 rounded-lg bg-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">notifications_active</span>
+<span class="font-body-sm text-body-sm text-on-surface">Anlık Takas &amp; Onay Bildirimleri</span>
+</div>
+<span class="font-metric-mono text-label-sm text-tertiary font-semibold">Açık</span>
+</div>
+<div class="flex items-center justify-between py-1 px-2 rounded-lg bg-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">smart_toy</span>
+<span class="font-body-sm text-body-sm text-on-surface">Algoritma Vardiya Kaydırma Uyarıları</span>
+</div>
+<span class="font-metric-mono text-label-sm text-secondary font-semibold">Açık</span>
+</div>
+</div>
+<button class="w-full py-2.5 px-space-md rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Kanal Ayarlarını Yapılandır</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+</main>

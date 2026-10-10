@@ -74,6 +74,14 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'bildirimler',
+        title: 'Bildirimler',
+        loadComponent: () =>
+          import('../pages/bildirimler/bildirimler').then(
+            (m) => m.Bildirimler,
+          ),
+      },
+      {
         path: 'profil',
         title: 'Profil & Ayarlar',
         loadComponent: () =>
