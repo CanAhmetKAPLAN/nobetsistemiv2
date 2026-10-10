@@ -43,15 +43,20 @@ export class App {
         return !route.data['hideNav'];
       }),
     ),
-    { initialValue: true },
+    { initialValue: false },
   );
 
-  // Sadece geliştirme ortamında: giriş sistemi gelene kadar rolü denemek için
+  // Sadece geliştirme ortamında: rolü denemek ve çıkış yapmak için
   protected toggleRole() {
     const next = this.auth.isAdmin() ? 'user' : 'admin';
     this.auth.setRole(next);
     if (next === 'user' && this.router.url.startsWith('/yonetim')) {
       this.router.navigateByUrl('/nobetlerim');
     }
+  }
+
+  protected logout() {
+    this.auth.logout();
+    this.router.navigateByUrl('/login');
   }
 }

@@ -1,0 +1,167 @@
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" type="button" (click)="goBack()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><img alt="NöbetPro logosu" class="h-9 w-9 rounded-lg object-cover shrink-0" src="nobetlogo-64.png" srcset="nobetlogo-64.png 1x, nobetlogo-256.png 3x" width="36" height="36"/><span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight hidden sm:inline">NöbetPro</span><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-tertiary text-[16px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">SECURE AUTH</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Change language" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">language</span></button><button aria-label="Help and support" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header>
+<main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full px-gutter pb-space-2xl space-y-space-lg">
+<div class="flex flex-col items-center text-center pt-space-md space-y-space-sm">
+<div class="relative flex items-center justify-center w-16 h-16 rounded-full bg-surface-container-high shadow-lg shadow-black/40">
+<div class="absolute inset-0 rounded-full bg-primary/10 animate-pulse"></div>
+<span class="material-symbols-outlined text-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">calendar_clock</span>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container text-[14px]">shield</span>
+</div>
+</div>
+<div class="space-y-space-xs">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Tekrar Hoş Geldiniz</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mx-auto">
+        Adil ve algoritmik nöbet takip sisteminize güvenle giriş yapın.
+      </p>
+</div>
+<!-- Mode Selector Segment -->
+<div class="w-full max-w-sm mt-space-sm p-space-xs rounded-xl bg-surface-container-low flex items-center justify-between shadow-inner">
+<button class="flex-1 py-space-sm px-space-md rounded-lg bg-surface-container-high text-on-surface font-label-lg text-label-lg shadow-sm flex items-center justify-center gap-space-xs transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">login</span>
+<span>Giriş Yap</span>
+</button>
+<a class="flex-1 py-space-sm px-space-md rounded-lg text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-space-xs transition-all" routerLink="/register">
+<span class="material-symbols-outlined text-[16px]">person_add</span>
+<span>Kayıt Ol</span>
+</a>
+</div>
+</div>
+<!-- Role Context Switcher -->
+<div class="w-full max-w-sm mx-auto bg-surface-container-low p-space-md rounded-xl space-y-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Yetki Seviyesi</span>
+<span class="font-label-sm text-label-sm text-tertiary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Canlı Algoritma v4.2
+      </span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs" id="roleSelector">
+<button class="role-btn p-space-sm rounded-lg flex items-center gap-space-xs justify-center transition-all" id="role-staff" type="button" [class]="role() === 'user' ? 'bg-surface-container-highest text-primary' : 'bg-surface-container text-on-surface-variant hover:text-on-surface'" [attr.aria-pressed]="role() === 'user'" (click)="role.set('user')">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="font-label-md text-label-md">Personel</span>
+</button>
+<button class="role-btn p-space-sm rounded-lg flex items-center gap-space-xs justify-center transition-all" id="role-admin" type="button" [class]="role() === 'admin' ? 'bg-surface-container-highest text-primary' : 'bg-surface-container text-on-surface-variant hover:text-on-surface'" [attr.aria-pressed]="role() === 'admin'" (click)="role.set('admin')">
+<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Nöbet Amiri / İdari</span>
+</button>
+</div>
+</div>
+<!-- Credentials Form -->
+<form class="w-full max-w-sm mx-auto space-y-space-md" (submit)="$event.preventDefault(); submit(remember.checked)">
+<!-- Identifier Input -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface" for="tc-input">T.C. Kimlik No / Kurumsal E-Posta</label>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Zorunlu</span>
+</div>
+<div class="relative flex items-center">
+<div class="absolute left-space-md flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">id_card</span>
+</div>
+<input class="w-full bg-surface-container-low text-on-surface pl-11 pr-space-md py-3 rounded-lg font-body-md text-body-md focus:bg-surface-container-high focus:outline-none transition-colors placeholder:text-outline" id="tc-input" inputmode="text" placeholder="11 haneli T.C. veya @kurum.gov.tr" required="" type="text"/>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant pl-space-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+<span>Sağlık Bakanlığı, MEB, TSK ve EGM kimlik altyapısı desteklenir</span>
+</p>
+</div>
+<!-- Password Input -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface" for="password-input">Sistem Şifresi</label>
+<button class="font-label-md text-label-md text-primary hover:text-primary-fixed transition-colors" type="button">Şifremi Unuttum?</button>
+</div>
+<div class="relative flex items-center">
+<div class="absolute left-space-md flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="w-full bg-surface-container-low text-on-surface pl-11 pr-11 py-3 rounded-lg font-body-md text-body-md focus:bg-surface-container-high focus:outline-none transition-colors placeholder:text-outline" id="password-input" placeholder="••••••••" required="" [type]="showPassword() ? 'text' : 'password'"/>
+<button aria-label="Şifreyi Göster" class="absolute right-space-sm p-space-xs text-on-surface-variant hover:text-on-surface transition-colors" id="togglePasswordBtn" type="button" (click)="showPassword.set(!showPassword())">
+<span class="material-symbols-outlined text-[20px]" id="passwordEyeIcon">{{ showPassword() ? 'visibility_off' : 'visibility' }}</span>
+</button>
+</div>
+</div>
+<!-- Helper Row: Remember Me & Security Status -->
+<div class="flex items-center justify-between pt-space-xs">
+<label class="flex items-center gap-space-sm cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high text-primary-container focus:ring-0 focus:outline-none cursor-pointer" id="rememberMe" type="checkbox" #remember/>
+<span class="font-label-md text-label-md text-on-surface-variant">Oturumu açık tut (30 gün)</span>
+</label>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> Nöbet Bildirimleri Aktif
+      </span>
+</div>
+<!-- Primary Login Button -->
+<button class="w-full py-3.5 px-space-lg rounded-lg bg-primary-container hover:bg-primary-container/90 text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-sm shadow-md hover:shadow-lg shadow-primary-container/20 transition-all active:scale-[0.99]" id="submitBtn" type="submit" [disabled]="submitState() !== 'idle'">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span id="submitText">{{ submitState() === 'sending' ? 'Doğrulanıyor...' : submitState() === 'done' ? 'Giriş Başarılı' : 'Güvenli Giriş Yap' }}</span>
+<span class="material-symbols-outlined text-[20px]" id="submitArrow" [class.animate-spin]="submitState() === 'sending'">{{ submitState() === 'sending' ? 'sync' : submitState() === 'done' ? 'check_circle' : 'arrow_forward' }}</span>
+</button>
+</form>
+<!-- SSO & Identity Providers Divider -->
+<div class="w-full max-w-sm mx-auto space-y-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex-1 h-px bg-surface-container-high"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Veya Resmi Giriş</span>
+<div class="flex-1 h-px bg-surface-container-high"></div>
+</div>
+<!-- Government & Enterprise SSO options -->
+<div class="space-y-space-sm">
+<button class="w-full py-3 px-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-between transition-colors shadow-sm" type="button">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-error-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[18px]">account_balance</span>
+</div>
+<div class="text-left">
+<div class="font-label-md text-label-md text-on-surface">e-Devlet Kapısı ile Giriş</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Kamu personeli doğrudan doğrulama</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">chevron_right</span>
+</button>
+<button class="w-full py-3 px-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-between transition-colors shadow-sm" type="button">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[18px]">domain</span>
+</div>
+<div class="text-left">
+<div class="font-label-md text-label-md text-on-surface">Kurumsal Kimlik (SSO)</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">SAML 2.0 / Azure AD / Okta Entegrasyonu</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Operational Fairness & Trust Card -->
+<div class="w-full max-w-sm mx-auto bg-surface-container-lowest p-space-md rounded-xl space-y-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">balance</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Hafta Sonu / Gece Puan Algoritması</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">0.25 Hafta içi • 0.75 Hafta sonu adalet katsayısı</div>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-sm">
+<div class="bg-gradient-to-r from-primary-container via-secondary to-tertiary h-full w-[84%]"></div>
+</div>
+<div class="flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant pt-1">
+<span>Genel Kadro Eşitlik Endeksi</span>
+<span class="text-tertiary font-metric-mono">%98.4 Uyumlu</span>
+</div>
+</div>
+<!-- Security & KVKK Compliance Footnote -->
+<div class="w-full max-w-sm mx-auto flex flex-col items-center text-center space-y-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
+<span>256-bit Uçtan Uca Şifreli • KVKK &amp; GDPR Uyumlu Altyapı</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+      Kurumunuz henüz NöbetPro'ya kayıtlı değil mi? <br/>
+<a class="text-primary hover:underline font-label-md text-label-md" routerLink="/register">Hemen Kurumsal Kayıt ve Bilgi Talebi Oluşturun</a>
+</p>
+</div>
+</div>
+
+</main>
