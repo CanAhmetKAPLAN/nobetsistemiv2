@@ -1,7 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree } from '@angular/router';
 import { adminGuard } from './admin.guard';
-import { authGuard, guestGuard } from './auth.guards';
+import {
+  authGuard,
+  groupGuard,
+  guestGuard,
+  noGroupGuard,
+} from './auth.guards';
 import { AuthService } from './auth.service';
 
 describe('auth guards', () => {
@@ -34,5 +39,19 @@ describe('auth guards', () => {
   it('guestGuard: giriş yapmış kullanıcıyı login sayfasından uzak tutar', () => {
     TestBed.inject(AuthService).login('user', false);
     expect(redirectOf(run(guestGuard))).toBe('/nobetlerim');
+  });
+
+  it('groupGuard: grubu olmayanı grup ekleme sayfasına yönlendirir', () => {
+    TestBed.inject(AuthService).login('user', false, false);
+    expect(redirectOf(run(groupGuard))).toBe('/grup-ekle');
+  });
+
+  it('noGroupGuard: gruba katıldıktan sonra grup ekleme sayfası kapanır', () => {
+    const auth = TestBed.inject(AuthService);
+    auth.login('user', false, false);
+    expect(run(noGroupGuard)).toBe(true);
+    auth.joinGroup('admin');
+    expect(redirectOf(run(noGroupGuard))).toBe('/nobetlerim');
+    expect(auth.isAdmin()).toBe(true);
   });
 });

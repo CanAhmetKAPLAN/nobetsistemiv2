@@ -1,6 +1,11 @@
 import { Route } from '@angular/router';
 import { adminGuard } from './auth/admin.guard';
-import { authGuard, guestGuard } from './auth/auth.guards';
+import {
+  authGuard,
+  groupGuard,
+  guestGuard,
+  noGroupGuard,
+} from './auth/auth.guards';
 
 export const appRoutes: Route[] = [
   {
@@ -19,9 +24,18 @@ export const appRoutes: Route[] = [
       import('../pages/register/register').then((m) => m.Register),
   },
   {
-    // Buradaki tüm sayfalar giriş gerektirir
+    // Yeni üye: davet koduyla gruba katılır ya da yeni grup kurar
+    path: 'grup-ekle',
+    title: 'Grup Ekle',
+    canMatch: [authGuard, noGroupGuard],
+    data: { hideNav: true },
+    loadComponent: () =>
+      import('../pages/grupekle/grupekle').then((m) => m.Grupekle),
+  },
+  {
+    // Buradaki tüm sayfalar giriş ve bir gruba üyelik gerektirir
     path: '',
-    canMatch: [authGuard],
+    canMatch: [authGuard, groupGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'nobetlerim' },
       {

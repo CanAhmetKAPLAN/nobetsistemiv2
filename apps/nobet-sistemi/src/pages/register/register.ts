@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../app/auth/auth.service';
 
 type Sector = 'health' | 'education' | 'security' | 'other';
 type SubmitState = 'idle' | 'sending' | 'done';
@@ -27,6 +28,7 @@ const STRENGTH_LEVELS: Strength[] = [
   styleUrl: './register.css',
 })
 export class Register {
+  private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly location = inject(Location);
 
@@ -56,14 +58,19 @@ export class Register {
     this.location.back();
   }
 
-  // Backend gelene kadar kayıt talebi sadece onaylanmış gibi gösterilir, sonra girişe dönülür
-  protected submit() {
+  // Backend gelene kadar kayıt hemen onaylanmış sayılır ve oturum açılır.
+  // Birim kodu girildiyse kullanıcı o gruba bağlanır, girilmediyse grup ekleme sayfasına gider.
+  protected submit(unitCode: string) {
+    const hasGroup = unitCode.trim().length > 0;
     this.submitState.set('sending');
     this.timers.push(
       setTimeout(() => {
         this.submitState.set('done');
         this.timers.push(
-          setTimeout(() => this.router.navigateByUrl('/login'), 1200),
+          setTimeout(() => {
+            this.auth.login('user', false, hasGroup);
+            this.router.navigateByUrl(hasGroup ? '/nobetlerim' : '/grup-ekle');
+          }, 900),
         );
       }, 900),
     );

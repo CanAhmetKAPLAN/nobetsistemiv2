@@ -1,0 +1,314 @@
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" type="button" (click)="backToLogin()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><img alt="NöbetPro logosu" class="h-9 w-9 rounded-lg object-cover shrink-0" src="nobetlogo-64.png" srcset="nobetlogo-64.png 1x, nobetlogo-256.png 3x" width="36" height="36"/><span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight hidden sm:inline">NöbetPro</span><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-tertiary text-[16px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">SECURE AUTH</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Change language" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">language</span></button><button aria-label="Help and support" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header>
+<main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full text-on-surface">
+<div class="px-gutter pt-space-md pb-space-lg">
+<!-- Top Eyebrow & Headline -->
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="inline-flex items-center gap-space-xs self-start px-space-sm py-space-xs rounded-full bg-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-[16px]">groups_3</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Birim / Görev Katılımı</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-on-surface tracking-tight">
+        Nöbet Grubuna Katıl veya Yeni Grup Kur
+      </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+        Mevcut bir nöbet havuzuna bağlanmak için birim davet kodunu girin veya ekibiniz için sıfırdan algoritmik nöbet grubu oluşturun.
+      </p>
+</div>
+<!-- Segment / Interactive Switcher Tabs -->
+<div class="grid grid-cols-2 p-space-xs rounded-lg bg-surface-container-low mb-space-lg shadow-sm" role="tablist">
+<button class="flex items-center justify-center gap-space-xs py-space-sm px-space-xs rounded-md font-label-md text-label-md transition-all duration-200" id="tab-join" role="tab" [attr.aria-selected]="mode() === 'join'" [class]="mode() === 'join' ? 'bg-primary-container text-on-primary font-semibold shadow-md' : 'text-on-surface-variant hover:text-on-surface'" (click)="mode.set('join')" role="tab">
+<span class="material-symbols-outlined text-[18px]">key</span>
+<span>Davet Kodum Var</span>
+</button>
+<button class="flex items-center justify-center gap-space-xs py-space-sm px-space-xs rounded-md font-label-md text-label-md transition-all duration-200" id="tab-create" role="tab" [attr.aria-selected]="mode() === 'create'" [class]="mode() === 'create' ? 'bg-primary-container text-on-primary font-semibold shadow-md' : 'text-on-surface-variant hover:text-on-surface'" (click)="mode.set('create')" role="tab">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Yeni Grup Oluştur</span>
+</button>
+</div>
+<!-- SECTION A: DAVET KODU İLE KATIL -->
+<section class="flex-col gap-space-md transition-all duration-300" id="panel-join" [class.hidden]="mode() !== 'join'" [class.flex]="mode() === 'join'">
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">pin</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Davet Kodu İle Katıl</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Birim amirinizden temin ettiğiniz kodu girin</p>
+</div>
+</div>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container text-secondary font-metric-mono text-body-sm">6-8 Hane</span>
+</div>
+<!-- Code Input & Verification -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="invite-code-input">Birim Davet Kodu</label>
+<div class="flex gap-space-xs items-center">
+<div class="relative flex-1">
+<input class="w-full bg-surface-container-lowest text-on-surface font-metric-mono text-body-lg uppercase tracking-wider px-space-md py-space-sm rounded-lg outline-none focus:bg-surface-container-high transition-colors placeholder:text-outline" id="invite-code-input" maxlength="10" placeholder="Örn: ACIL-402" type="text" #inviteCode (input)="codeChanged()" (keydown.enter)="verifyCode(inviteCode.value)"/>
+@if (verifiedCode()) {
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-tertiary material-symbols-outlined text-[20px]">verified</span>
+}
+</div>
+<button class="px-space-md py-space-sm rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md flex items-center gap-space-xs shadow-sm transition-colors" type="button" (click)="verifyCode(inviteCode.value)">
+<span class="material-symbols-outlined text-[18px]">search</span>
+<span>Sorgula</span>
+</button>
+</div>
+@if (codeError()) {
+<p class="font-body-sm text-body-sm text-error">Lütfen geçerli bir birim davet kodu giriniz (Örn: ACIL-402).</p>
+}
+</div>
+@if (verifiedCode()) {
+<!-- Verified Unit Card Preview -->
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-sm shadow-sm relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-tertiary-container/20 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wide">Doğrulandı: Aktif Havuz</span>
+</div>
+<span class="font-metric-mono text-body-sm text-on-surface-variant bg-surface-container-high px-space-xs py-0.5 rounded">#{{ verifiedCode() }}</span>
+</div>
+<div class="flex flex-col">
+<div class="font-headline-sm text-headline-sm font-semibold text-on-surface">Marmara Eğt. Arş. Hastanesi</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Acil Servis Nöbet Kadrosu • Dahiliye &amp; Cerrahi Triyaj</div>
+</div>
+<div class="grid grid-cols-3 gap-space-xs pt-space-xs">
+<div class="bg-surface-container-low p-space-xs rounded-md flex flex-col items-center">
+<span class="font-metric-mono text-body-sm text-secondary font-bold">28</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Personel</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded-md flex flex-col items-center">
+<span class="font-metric-mono text-body-sm text-tertiary font-bold">0.98 Δ</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Adalet Endeksi</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded-md flex flex-col items-center">
+<span class="font-metric-mono text-body-sm text-primary font-bold">Aktif</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dönem: Mart</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs pt-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">admin_panel_settings</span>
+<span class="font-body-sm text-body-sm">Birim Amiri: <strong class="text-on-surface">Uzm. Dr. Kemal S.</strong> (Onay Şartı Var)</span>
+</div>
+</div>
+<!-- CTA Join Button -->
+<button class="w-full py-space-sm px-space-md rounded-lg bg-primary-container hover:bg-primary-container/90 text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md transition-all active:scale-[0.99]" type="button" [disabled]="joinState() !== 'idle'" (click)="join()">
+<span class="material-symbols-outlined text-[20px]" [class.animate-spin]="joinState() === 'sending'">{{ joinState() === 'sending' ? 'sync' : joinState() === 'done' ? 'check_circle' : 'how_to_reg' }}</span>
+<span>{{ joinState() === 'sending' ? 'Gönderiliyor...' : joinState() === 'done' ? 'Gruba Katıldınız' : 'Gruba Katılma İsteği Gönder' }}</span>
+</button>
+}
+</div>
+<!-- Quick Switch Banner for users without code -->
+<div class="p-space-md rounded-xl bg-surface-container-high/60 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Yetkili / Amir misiniz?</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">bolt</span>
+</div>
+<p class="font-headline-sm text-headline-sm font-semibold text-on-surface">Kurumunuz İçin Yeni Nöbet Grubu Açın</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Nöbet amiri, başhemşire, zümre başkanı veya vardiya şefi olarak kendi ekibinizi ekleyip adil algoritmik dağıtımı başlatın.
+        </p>
+<button class="mt-space-xs self-start px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-bright text-primary font-label-md text-label-md flex items-center gap-space-xs shadow-sm transition-colors" (click)="mode.set('create')" type="button">
+<span>Yeni Grup Kurulumuna Geç</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- SECTION B: YENİ NÖBET GRUBU OLUŞTURMA FORMU -->
+<section class="flex-col gap-space-md transition-all duration-300" id="panel-create" [class.hidden]="mode() !== 'create'" [class.flex]="mode() === 'create'">
+<!-- Highlight Banner -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">add_moderator</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Yeni Nöbet Grubu Kurulumu</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Birim kural setinizi ve otomatik davet kodunuzu belirleyin</p>
+</div>
+</div>
+</div>
+<!-- Main Creation Form Card -->
+<form class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md" (submit)="$event.preventDefault(); createGroup()">
+<!-- Input 1: Grup / Birim Adı -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="group-name">Birim / Kadro / Grup Adı</label>
+<span class="font-label-sm text-label-sm text-outline">Zorunlu</span>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-space-md py-space-sm pl-10 rounded-lg outline-none focus:bg-surface-container-high transition-colors placeholder:text-outline" id="group-name" placeholder="Örn: 1. Dahiliye Kliniği veya Merkez Karakol A Grubu" required="" type="text"/>
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant material-symbols-outlined text-[18px]">domain</span>
+</div>
+</div>
+<!-- Input 2: Kurum / Sektör Türü Seçimi -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Kurum / Sektör Türü</label>
+<div class="grid grid-cols-2 gap-space-xs" id="sector-grid">
+<button class="sector-btn p-space-sm rounded-lg flex items-center gap-space-xs transition-all text-left" data-sector="health" type="button" [class]="sector() === 'health' ? 'bg-primary-container text-on-primary shadow-sm' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'" [attr.aria-pressed]="sector() === 'health'" (click)="sector.set('health')">
+<span class="material-symbols-outlined text-[20px]">local_hospital</span>
+<div class="flex flex-col leading-tight">
+<span class="font-label-md text-label-md font-semibold">Sağlık &amp; Tıp</span>
+<span class="font-label-sm text-label-sm" [class]="sector() === 'health' ? 'opacity-80' : 'text-on-surface-variant'">Hastane / ASM</span>
+</div>
+</button>
+<button class="sector-btn p-space-sm rounded-lg flex items-center gap-space-xs transition-all text-left" data-sector="security" type="button" [class]="sector() === 'security' ? 'bg-primary-container text-on-primary shadow-sm' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'" [attr.aria-pressed]="sector() === 'security'" (click)="sector.set('security')">
+<span class="material-symbols-outlined text-[20px] text-secondary">shield</span>
+<div class="flex flex-col leading-tight">
+<span class="font-label-md text-label-md font-semibold">Güvenlik</span>
+<span class="font-label-sm text-label-sm" [class]="sector() === 'security' ? 'opacity-80' : 'text-on-surface-variant'">TSK / EGM / Özel</span>
+</div>
+</button>
+<button class="sector-btn p-space-sm rounded-lg flex items-center gap-space-xs transition-all text-left" data-sector="education" type="button" [class]="sector() === 'education' ? 'bg-primary-container text-on-primary shadow-sm' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'" [attr.aria-pressed]="sector() === 'education'" (click)="sector.set('education')">
+<span class="material-symbols-outlined text-[20px] text-tertiary">school</span>
+<div class="flex flex-col leading-tight">
+<span class="font-label-md text-label-md font-semibold">Eğitim</span>
+<span class="font-label-sm text-label-sm" [class]="sector() === 'education' ? 'opacity-80' : 'text-on-surface-variant'">Okul / Zümre</span>
+</div>
+</button>
+<button class="sector-btn p-space-sm rounded-lg flex items-center gap-space-xs transition-all text-left" data-sector="industry" type="button" [class]="sector() === 'industry' ? 'bg-primary-container text-on-primary shadow-sm' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'" [attr.aria-pressed]="sector() === 'industry'" (click)="sector.set('industry')">
+<span class="material-symbols-outlined text-[20px] text-primary">precision_manufacturing</span>
+<div class="flex flex-col leading-tight">
+<span class="font-label-md text-label-md font-semibold">Sanayi / Vardiya</span>
+<span class="font-label-sm text-label-sm" [class]="sector() === 'industry' ? 'opacity-80' : 'text-on-surface-variant'">7/24 Üretim / BT</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Input 3: Algoritmik Dağıtım Modeli Ön Ayarı (Preset) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Adil Dağıtım &amp; Katsayı Modeli</label>
+<span class="font-label-sm text-label-sm text-tertiary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">tune</span> Otomatik Denge
+            </span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<!-- Preset 1 (Active) -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high">
+<input checked="" class="mt-1 accent-primary-container" name="algorithm-preset" type="radio"/>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Standart Adalet Modeli</span>
+<span class="font-label-sm text-label-sm text-on-tertiary-container bg-tertiary-container px-space-xs py-0.2 rounded">Önerilen</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Hafta İçi: <strong class="text-secondary font-metric-mono">0.25p</strong> • Hafta Sonu: <strong class="text-tertiary font-metric-mono">0.75p</strong> (Resmi tatiller 1.00p)
+                </p>
+</div>
+</label>
+<!-- Preset 2 -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high">
+<input class="mt-1 accent-primary-container" name="algorithm-preset" type="radio"/>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Eşit Vardiya Skoru</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-highest px-space-xs rounded">1.00p Sabit</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Tüm nöbetler gün farkı gözetmeksizin eşit puanda tutulur.
+                </p>
+</div>
+</label>
+<!-- Preset 3 -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high">
+<input class="mt-1 accent-primary-container" name="algorithm-preset" type="radio"/>
+<div class="flex flex-col flex-1">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Özel Katsayı &amp; Kıdem Ağırlığı</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Kıdem, mazeret ve gece çarpanlarını kurulduktan sonra detaylı belirleyin.
+                </p>
+</div>
+</label>
+</div>
+</div>
+<!-- Input 4: Tahmini Personel Sayısı -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="personnel-count">Tahmini Kadro / Personel Sayısı</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-space-md py-space-sm rounded-lg outline-none appearance-none focus:bg-surface-container-high transition-colors" id="personnel-count">
+<option value="1-10">1 - 10 Personel (Küçük Birim)</option>
+<option selected="" value="11-30">11 - 30 Personel (Standart Servis / Takım)</option>
+<option value="31-60">31 - 60 Personel (Büyük Klinik / Karakol)</option>
+<option value="60+">60+ Personel (Genişletilmiş Tabur / Bölge)</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant material-symbols-outlined pointer-events-none text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Otomatik Davet Kodu ve QR Önizleme Rozeti -->
+<div class="p-space-md rounded-lg bg-surface-container-highest/60 flex items-center gap-space-md shadow-sm">
+<div class="w-14 h-14 bg-surface-container-lowest rounded-lg flex items-center justify-center p-1.5 shadow-sm shrink-0">
+<!-- Simulated Stylized QR Matrix using inline SVG -->
+<svg class="w-full h-full text-secondary" fill="currentColor" viewbox="0 0 24 24">
+<path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v4h-4v-4zm-4 4h4v4h-4v-4zm0-4h-4v4h4v-4zm4-4h-4v4h4v-4z"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Otomatik Kod Motoru</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<p class="font-headline-sm text-headline-sm font-metric-mono font-bold text-on-surface">NBT-9342</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kurulum tamamlandığında güvenli amir anahtarı ve paylaşım linki oluşturulur.</p>
+</div>
+</div>
+<!-- Checkbox: Authority Acceptance -->
+<label class="flex items-start gap-space-sm pt-space-xs cursor-pointer select-none">
+<input checked="" class="mt-1 accent-primary-container rounded" required="" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+            Grup yöneticisi ve nöbet amiri olarak yetki üstlenmeyi, kural belirleme ve personel onaylama sorumluluğunu onaylıyorum.
+          </span>
+</label>
+<!-- Primary CTA to Create -->
+<button class="w-full py-space-sm px-space-md rounded-lg bg-primary-container hover:bg-primary-container/90 text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md transition-all active:scale-[0.99]" type="submit" [disabled]="createdCode() !== null">
+<span class="material-symbols-outlined text-[20px]">{{ createdCode() ? 'check_circle' : 'rocket_launch' }}</span>
+<span>{{ createdCode() ? 'Grup Kuruldu • Davet Kodu: ' + createdCode() : 'Yeni Nöbet Grubunu Başlat &amp; Kod Üret' }}</span>
+</button>
+</form>
+</section>
+<!-- Visual Personnel Harmony / Roster Fairness Micro Metric Widget -->
+<div class="mt-space-md p-space-md rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-tertiary text-[18px]">balance</span>
+<span class="font-label-md text-label-md font-semibold">NöbetPro Denge Prensibi</span>
+</div>
+<span class="font-metric-mono text-body-sm text-tertiary">KVKK • ISO 27001</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Tüm birimler eşit ağırlıklı algoritmik rotasyon ile dağıtılır. Kimse art arda hafta sonu veya bayram nöbeti almaz.
+      </p>
+<!-- Distribution mini visualization bar -->
+<div class="w-full h-2 rounded-full bg-surface-container flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 45%;"></div>
+<div class="h-full bg-secondary" style="width: 35%;"></div>
+<div class="h-full bg-tertiary" style="width: 20%;"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> Hafta İçi (0.25)</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span> Hafta Sonu (0.75)</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary inline-block"></span> Mazeret Denge</span>
+</div>
+</div>
+<!-- Security & Footer Links -->
+<div class="mt-space-lg flex flex-col items-center gap-space-sm text-center">
+<button class="inline-flex items-center gap-space-xs text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors py-space-xs" type="button" (click)="backToLogin()">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Giriş Ekranına Geri Dön</span>
+</button>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant/80 pt-space-xs">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-tertiary text-[15px]">lock</span>
+<span>256-bit Uçtan Uca Şifreli • Amir Onaylı Katılım</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant/60 max-w-xs">
+          Oluşturulan grup kodları yalnızca amir teyidi almış personelle eşleşir.
+        </p>
+</div>
+</div>
+</div>
+</div>
+
+</main>

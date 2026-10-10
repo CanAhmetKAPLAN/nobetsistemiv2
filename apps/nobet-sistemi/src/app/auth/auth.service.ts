@@ -4,6 +4,7 @@ export type Role = 'admin' | 'user';
 
 interface Session {
   role: Role;
+  hasGroup: boolean;
 }
 
 const STORAGE_KEY = 'nobetpro.session';
@@ -18,12 +19,19 @@ export class AuthService {
   readonly isLoggedIn = computed(() => this.session() !== null);
   readonly role = computed<Role>(() => this.session()?.role ?? 'user');
   readonly isAdmin = computed(() => this.role() === 'admin');
+  readonly hasGroup = computed(() => this.session()?.hasGroup ?? false);
 
-  login(role: Role, remember: boolean) {
-    const session: Session = { role };
+  // Mevcut kullanıcıların grubu var sayılır; yeni kayıtta grup sonradan seçilebilir
+  login(role: Role, remember: boolean, hasGroup = true) {
+    const session: Session = { role, hasGroup };
     this.session.set(session);
     clearStoredSession();
     write(remember ? 'local' : 'session', JSON.stringify(session));
+  }
+
+  // Gruba katılan personel olur, yeni grup kuran o grubun amiri (admin) olur
+  joinGroup(role: Role) {
+    this.update({ role, hasGroup: true });
   }
 
   logout() {
@@ -33,10 +41,15 @@ export class AuthService {
 
   // Geliştirme düğmesi için: oturumu koruyarak rolü değiştirir
   setRole(role: Role) {
-    if (!this.session()) return;
-    this.session.set({ role });
-    const where = read('local') ? 'local' : 'session';
-    write(where, JSON.stringify({ role }));
+    this.update({ role });
+  }
+
+  private update(patch: Partial<Session>) {
+    const current = this.session();
+    if (!current) return;
+    const next = { ...current, ...patch };
+    this.session.set(next);
+    write(read('local') ? 'local' : 'session', JSON.stringify(next));
   }
 }
 
@@ -78,7 +91,7 @@ function readSession(): Session | null {
   try {
     const parsed = JSON.parse(raw) as Partial<Session>;
     return parsed.role === 'admin' || parsed.role === 'user'
-      ? { role: parsed.role }
+      ? { role: parsed.role, hasGroup: parsed.hasGroup ?? true }
       : null;
   } catch {
     return null;

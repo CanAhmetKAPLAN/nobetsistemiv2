@@ -26,7 +26,7 @@
 </div>
 </div>
 <!-- Registration Form Card -->
-<form class="space-y-space-md" id="nobet-register-form" (submit)="$event.preventDefault(); submit()">
+<form class="space-y-space-md" id="nobet-register-form" (submit)="$event.preventDefault(); submit(unitCode.value)">
 <!-- 1. Ad Soyad -->
 <div class="space-y-1.5">
 <label class="flex items-center justify-between font-label-md text-label-md text-on-surface" for="fullname">
@@ -131,7 +131,7 @@
 </div>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[20px] pointer-events-none">domain_verification</span>
-<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md rounded-lg pl-10 pr-4 py-2.5 outline-none transition-all focus:bg-surface-container-low uppercase tracking-wider font-metric-mono shadow-sm" id="unit-code" placeholder="Örn: ACIL-402, 1-BOLUK veya LİSE-NOBET" type="text"/>
+<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md rounded-lg pl-10 pr-4 py-2.5 outline-none transition-all focus:bg-surface-container-low uppercase tracking-wider font-metric-mono shadow-sm" id="unit-code" #unitCode placeholder="Örn: ACIL-402, 1-BOLUK veya LİSE-NOBET" type="text"/>
 </div>
 <p class="font-label-sm text-label-sm text-on-surface-variant">
         Mevcut bir nöbet kuruluna veya amir listesine doğrudan bağlanmak için giriniz.
